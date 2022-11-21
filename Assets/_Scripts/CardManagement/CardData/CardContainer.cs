@@ -8,9 +8,9 @@ namespace Project.Cards
 {
     public class CardContainer : MonoBehaviour
     {
-        private const float CARD_ANIMATION_DURATION = 0.35f;
+        private const float CARD_ANIMATION_DURATION = 0.3f;
         private const Ease CARD_EASING = Ease.OutQuad;
-        private const float ANIMATION_X_SHIFT = 0.45f;
+        private const float ANIMATION_X_SHIFT = 0.5f;
 
         #region Properties
 
@@ -64,6 +64,10 @@ namespace Project.Cards
                 .SetEase(CARD_EASING);
 
             transform
+                .DOScaleY(1.25f, CARD_ANIMATION_DURATION)
+                .SetEase(CARD_EASING);
+
+            transform
                 .DOMoveX(_animationXValue - ANIMATION_X_SHIFT, CARD_ANIMATION_DURATION)
                 .SetEase(CARD_EASING);
 
@@ -75,6 +79,10 @@ namespace Project.Cards
             // rotate other half
             transform
                 .DOScaleX(1f, CARD_ANIMATION_DURATION)
+                .SetEase(CARD_EASING);
+
+            transform
+                .DOScaleY(1f, CARD_ANIMATION_DURATION)
                 .SetEase(CARD_EASING);
 
             transform

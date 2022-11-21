@@ -10,6 +10,7 @@ namespace Project.Utility.Loading
 {
     public class PicsumCardsLoader : ICardLoader
     {
+        private const float SIMULATE_SLOW_CONNECTION_DELAY = 0.35f;
         private const string CARDS_URL = "https://picsum.photos/256";
         private const int SPRITE_WIDTH = 256;
         private const int SPRITE_HEIGHT = 256;
@@ -25,7 +26,7 @@ namespace Project.Utility.Loading
 
         public void LoadCards(CardLoadingConfig config, Action<CardData> onCardLoadedCallback, Action onAllCardsLoadedCallback)
         {
-            _coroutineRunner.StartCoroutine(DownloadImages(config.Count, onCardLoadedCallback, onAllCardsLoadedCallback));
+            _coroutineRunner.StartCoroutine(DownloadImages(config, onCardLoadedCallback, onAllCardsLoadedCallback));
         }
 
         private CardData CreateCard(Sprite sprite)
@@ -42,10 +43,13 @@ namespace Project.Utility.Loading
             return cardData;
         }
 
-        private IEnumerator DownloadImages(int count,
+        private IEnumerator DownloadImages(CardLoadingConfig config,
             Action<CardData> onSpriteLoadedCallback,
             Action onFinishedLoadingCallback)
         {
+            var count = config.Count;
+            var simulateSlowConnection = config.SimulateSlowConnection;
+
             List<Sprite> images = new List<Sprite>(count);
             List<UnityWebRequestAsyncOperation> downloadOperations = new List<UnityWebRequestAsyncOperation>();
 
@@ -68,8 +72,12 @@ namespace Project.Utility.Loading
                     var tex = DownloadHandlerTexture.GetContent(operation.webRequest);
                     Sprite sprite = Sprite.Create(tex, new Rect(0, 0, SPRITE_WIDTH, SPRITE_HEIGHT), new Vector2(0.5f, 0.5f));
 
-                    var card = CreateCard(sprite);
+                    if (simulateSlowConnection)
+                    {
+                        yield return new WaitForSeconds(UnityEngine.Random.Range(0f, SIMULATE_SLOW_CONNECTION_DELAY));
+                    }
 
+                    var card = CreateCard(sprite);
                     onSpriteLoadedCallback.Invoke(card);
                 }
 

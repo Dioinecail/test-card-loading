@@ -7,6 +7,7 @@ namespace Project.Utility.Loading
     public struct CardLoadingConfig
     {
         public int Count;
+        public bool SimulateSlowConnection;
     }
 
     public interface ICardLoader

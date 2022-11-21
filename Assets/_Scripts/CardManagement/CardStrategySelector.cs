@@ -18,6 +18,19 @@ namespace Project.Utility.UI
         private ICardLoader _cardLoader;
 
 
+        public bool IsSimulateSlowConnection
+        {
+            get => _isSimulateSlowconnection;
+            set
+            {
+                _isSimulateSlowconnection = value;
+                FillDropDownMenu();
+                SetInitialStrategy();
+            }
+        }
+        private bool _isSimulateSlowconnection;
+
+
 
         private void Awake()
         {
@@ -38,7 +51,8 @@ namespace Project.Utility.UI
         {
             var config = new CardLoadingConfig()
             {
-                Count = 0
+                Count = 0,
+                SimulateSlowConnection = _isSimulateSlowconnection
             };
 
             _cardStrategies = new ICardShowStrategy[3];
@@ -52,6 +66,7 @@ namespace Project.Utility.UI
             options.Add("Show Sequentially");
             options.Add("Show Cards When All Ready");
 
+            _dropdown.options.Clear();
             _dropdown.AddOptions(options);
             _dropdown.onValueChanged.AddListener(OnDropDownItemSelected);
         }
