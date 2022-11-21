@@ -3,13 +3,14 @@ using UnityEngine;
 using Project.Cards;
 using Project.Utility.Showing;
 using UnityEngine.UI;
-using Project.Utility.Loading;
-using Project.Utility;
+using System.Threading.Tasks;
 
 namespace Project.CardManagement
 {
     public class CardDisplayManager : MonoBehaviour
     {
+        private const float CARD_SWITCH_DELAY = 0.35f;
+
         [SerializeField] private int _cardMinCount;
         [SerializeField] private int _cardMaxCount;
 
@@ -51,12 +52,15 @@ namespace Project.CardManagement
             }
         }
 
-        public void DisplayCards()
+        public async void DisplayCards()
         {
+            _showStrategy.HideCards();
+            SetUIState(false);
+
+            await Task.Delay((int)(CARD_SWITCH_DELAY * 1000));
+
             _showStrategy.onAllCardsDisplayed += OnCardsDisplayed;
             _showStrategy.DisplayCards();
-
-            SetUIState(false);
         }
 
 

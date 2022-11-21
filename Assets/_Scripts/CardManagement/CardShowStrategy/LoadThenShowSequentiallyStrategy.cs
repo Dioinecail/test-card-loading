@@ -22,6 +22,7 @@ namespace Project.Utility.Showing
             foreach (var c in _containers)
             {
                 c.SetCardState(true);
+                c.IsReady = true;
 
                 await Task.Delay((int)(_showDelayBetweenCards * 1000));
             }

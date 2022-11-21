@@ -8,9 +8,9 @@ namespace Project.Cards
 {
     public class CardContainer : MonoBehaviour
     {
-        private const float CARD_ANIMATION_DURATION = 0.65f;
+        private const float CARD_ANIMATION_DURATION = 0.35f;
         private const Ease CARD_EASING = Ease.OutQuad;
-        private const float ANIMATION_X_SHIFT = 0.35f;
+        private const float ANIMATION_X_SHIFT = 0.45f;
 
         #region Properties
 
@@ -49,8 +49,6 @@ namespace Project.Cards
             _nameText.text = info.Name;
             _descriptionText.text = info.Description;
             _heroImage.sprite = data.Sprite;
-
-            _animationXValue = transform.position.x;
         }
 
         public async void SetCardState(bool state)
@@ -84,6 +82,10 @@ namespace Project.Cards
                 .SetEase(CARD_EASING);
         }
 
+        #endregion
+
+        #region Private methods
+
         private void SetCardParameters(bool state)
         {
             _cardFront.SetActive(state);
@@ -95,6 +97,11 @@ namespace Project.Cards
             _heroImage.gameObject.SetActive(state);
 
             _cardBack.SetActive(!state);
+        }
+
+        private void Awake()
+        {
+            _animationXValue = transform.position.x;
         }
 
         #endregion

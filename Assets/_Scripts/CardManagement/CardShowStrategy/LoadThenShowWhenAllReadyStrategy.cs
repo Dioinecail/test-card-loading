@@ -21,6 +21,7 @@ namespace Project.Utility.Showing
             foreach (var c in _containers)
             {
                 c.SetCardState(false);
+                c.IsReady = false;
             }
         }
 
@@ -33,6 +34,7 @@ namespace Project.Utility.Showing
             var card = _containers.First(c => !c.IsReady);
 
             card.Init(data);
+            card.IsReady = true;
         }
 
         protected virtual void OnAllCardsLoaded()
