@@ -14,7 +14,6 @@ namespace Project.CardManagement
         [SerializeField] private List<Selectable> _uiElements;
 
         private ICardShowStrategy _showStrategy;
-        private ICardLoader _cardLoader;
 
 
 
@@ -31,13 +30,6 @@ namespace Project.CardManagement
             SetUIState(false);
         }
 
-        private void Awake()
-        {
-            var coroutineRunner = new GameObject() { hideFlags = HideFlags.HideAndDontSave }
-                                        .AddComponent<CoroutineRunner>();
-
-            _cardLoader = new PicsumCardsLoader(coroutineRunner);
-        }
 
         private void OnCardsDisplayed()
         {
