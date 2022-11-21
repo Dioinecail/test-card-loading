@@ -58,12 +58,12 @@ namespace Project.Utility.UI
 
         private void SetInitialStrategy()
         {
-            _displayManager.SetStrategy(_cardStrategies[0]);
+            _displayManager.CardShowStrategy = _cardStrategies[0];
         }
 
         private void OnDropDownItemSelected(int itemIndex)
         {
-            _displayManager.SetStrategy(_cardStrategies[itemIndex]);
+            _displayManager.CardShowStrategy = _cardStrategies[itemIndex];
         }
     }
 }
