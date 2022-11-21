@@ -47,15 +47,12 @@ namespace Project.Utility.Loading
             Action onFinishedLoadingCallback)
         {
             List<Sprite> images = new List<Sprite>(count);
-
-            var downloadHandler = new DownloadHandlerTexture();
-
             List<UnityWebRequestAsyncOperation> downloadOperations = new List<UnityWebRequestAsyncOperation>();
 
             for (int i = 0; i < count; i++)
             {
                 UnityWebRequest downloadRequest = new UnityWebRequest(CARDS_URL);
-                downloadRequest.downloadHandler = downloadHandler;
+                downloadRequest.downloadHandler = new DownloadHandlerTexture();
 
                 downloadOperations.Add(downloadRequest.SendWebRequest());
             }
