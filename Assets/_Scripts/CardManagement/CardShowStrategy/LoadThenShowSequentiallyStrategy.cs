@@ -3,13 +3,13 @@ using System.Threading.Tasks;
 
 namespace Project.Utility.Showing
 {
-    public class LoadThenShowSequenciallyStrategy : LoadThenShowWhenAllReadyStrategy
+    public class LoadThenShowSequentiallyStrategy : LoadThenShowWhenAllReadyStrategy
     {
         private float _showDelayBetweenCards = 0.35f;
 
 
 
-        public LoadThenShowSequenciallyStrategy(ICardLoader loader, CardLoadingConfig config)
+        public LoadThenShowSequentiallyStrategy(ICardLoader loader, CardLoadingConfig config)
             : base(loader, config) { }
 
         protected override void OnAllCardsLoaded()
